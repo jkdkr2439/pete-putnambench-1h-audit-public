@@ -1,0 +1,149 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.82in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,array}
+\usepackage{xcolor,hyperref}
+\definecolor{navy}{RGB}{24,49,83}
+\definecolor{muted}{RGB}{88,96,106}
+\hypersetup{colorlinks=true,linkcolor=navy,urlcolor=navy}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\newcommand{\status}[1]{\texttt{#1}}
+\title{\textbf{A One-Hour, Full-Corpus PutnamBench Audit}\\[3pt]
+\large Immutable Proof Locks, Post-Lock Checking, and Honest Denominators}
+\author{Kevin T.N\\\small Epistemology Researcher and Framework Designer}
+\date{14 August 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We report a one-hour natural-language stress test over all 673 informal statements in a fixed PutnamBench snapshot. Kevin T.N designed the Pete / Math Fieldmap epistemic scaffold; an operator-designated GPT-5.6 Sol Light deployment in Codex Desktop generated the candidate solutions and audit trace. The deployment is treated as a general-purpose coding and agent model, not as a mathematics-specialized model. The run used answer-free triage, bounded attempts, deferral, immutable SHA-256 proof locks, and reference access only after locking. It produced 178 locked candidates. After post-lock inspection, 100 had final results agreeing with sealed references, 72 passed manual self-audit where the reference was empty, three retained proof gaps, two failed audit, and one conflicted with the supplied reference. Three items were contaminated before the timed run and 492 were deferred. No proof was checked by Lean, Coq, Isabelle, or another kernel; the formal score is therefore 0/673. The experiment demonstrates an auditable high-coverage workflow, not proof validity, framework causality, or superiority to specialized mathematical models.
+\end{abstract}
+
+\section{Research question}
+The narrow question is whether a general-purpose AI deployment, supplied with a human-designed reasoning scaffold and a strict evidence protocol, can traverse a complete mathematical benchmark under a one-hour wall-clock budget while leaving enough provenance to distinguish attempts, answer agreement, detected errors, unresolved gaps, and formal verification.
+
+This pilot does \emph{not} answer whether the tested system outperforms mathematics-specialized models. No matched baseline was run. It also does not test whether extending another model's time budget would reproduce the result. Those are hypotheses for a controlled follow-up.
+
+\section{Roles and disclosure boundary}
+\begin{center}\small
+\begin{tabular}{p{0.25\linewidth}p{0.65\linewidth}}
+\toprule
+Element & Recorded role\\\midrule
+Kevin T.N & Epistemology researcher; designer and namer of Pete / Math Fieldmap; specified the experiment and disclosure boundary.\\
+Tested AI & Operator-designated GPT-5.6 Sol Light in Codex Desktop. It generated proofs, classifications, corrections, and logs. The exact deployment label is operator metadata, not independently encoded by PutnamBench.\\
+Fieldmap & Human-designed context and reasoning scaffold. Its implementation is proprietary and excluded.\\
+Public package & Observable protocol, immutable proof artifacts, event log, outcome table, provenance, and this analysis.\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The repository excludes internal maps, graph schemas, gates, rules, prompts, orchestration code, reusable procedures, and sealed solutions. This prevents the audit paper from becoming a disclosure of the reasoning engine. The framework is described only through externally observable operations.
+
+\section{Corpus and timed protocol}
+The denominator was established before timing from the informal PutnamBench corpus at upstream commit
+\status{dfb0a47a1c1ec3a10f2a9acfdf41a2043920f33c}. The inventory contained 673 statements. The statement snapshot had SHA-256 digest
+\status{cf55e674075427765027b20f77c0fdfab7c7dc751a80b26d1f0524868b76c02f}.
+
+The timed window ran from 20:31:41.671254 UTC to 21:31:41.671254 UTC on 13 August 2026. The scheduler could classify a problem, attempt it, defer it, and move to another problem. Such routing was allowed, but skipped items remained in the denominator.
+
+For a candidate to enter the audit, its natural-language proof file had to be hashed and appended to the proof-lock ledger before reference access. A lock was immutable: later corrections could be recorded as audit notes, but the locked artifact was not silently replaced. References were opened only after an authorization event tied to a lock. Three problems exposed before the run were labeled contaminated and made permanently ineligible for credit.
+
+The observable loop can be summarized as
+\[
+\text{inventory}\to\text{triage}\to\text{attempt}\to
+\begin{cases}
+\text{defer},\\
+\text{lock}\to\text{reference access}\to\text{audit}.
+\end{cases}
+\]
+This diagram is a reporting abstraction, not a specification of the private engine.
+
+\section{Outcome taxonomy}
+The categories were deliberately kept non-equivalent.
+
+\begin{center}\small
+\begin{tabular}{p{0.31\linewidth}p{0.59\linewidth}}
+\toprule
+Status & Meaning\\\midrule
+\status{POST\_LOCK\_CORROBORATED} & The locked candidate's reported result agrees with the sealed reference opened afterward. This checks an endpoint, not every proof step.\\
+\status{MANUAL\_AUDIT\_PASS} & The reference was empty and the AI's line-by-line self-audit found no gap. This is neither independent review nor formal verification.\\
+\status{MANUAL\_AUDIT\_GAP} & A nontrivial gap remained in a locked candidate.\\
+\status{AUDIT\_FAIL} & Post-lock inspection found a false conclusion or invalid inference.\\
+\status{REFERENCE\_CONFLICT} & The locked result and supplied reference could not be reconciled safely.\\
+\status{CONTAMINATED\_NO\_CREDIT} & Reference information was available before timing.\\
+\status{DEFERRED\_UNSOLVED} & No locked candidate was produced.\\
+\status{FORMAL\_VERIFIED} & A proof kernel accepted a formal proof. No item reached this state.\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Results}
+\begin{center}\small
+\begin{tabular}{lr}
+\toprule
+Recorded outcome & Count\\\midrule
+Immutable natural-language candidates & 178\\
+Post-lock result agreements & 100\\
+Manual self-audit passes & 72\\
+Locked audit gaps & 3\\
+Audit failures & 2\\
+Reference conflicts & 1\\
+Pre-run contaminated & 3\\
+Deferred or unattempted & 492\\
+Proof-hash mismatches & 0\\
+Append-only log-chain errors & 0\\
+Formal proof-assistant verified & 0/673\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The locked categories sum to 178. Adding the 492 deferred items and three separately contaminated items yields the complete denominator of 673. No candidate disappeared from the accounting.
+
+The two audit failures are informative. In \status{putnam\_1994\_b3}, the locked answer incorrectly included an endpoint; the corrected set was recorded only after locking. In \status{putnam\_1990\_a5}, the locked proof used an invalid multiplication step and asserted a false implication. The retained gaps are \status{putnam\_1962\_a1}, \status{putnam\_1966\_b5}, and \status{putnam\_2000\_a6}. The conflict is \status{putnam\_2024\_b1}, where the locked derivation and rendered informal reference differed in a way consistent with possible source formatting corruption; it was not counted as corroborated.
+
+Three additional drafts were explicitly marked uncounted and never locked. Their presence in the evidence directory does not change the locked-candidate total. This distinction prevents file existence from being mistaken for experimental success.
+
+\section{What the one-hour number does and does not show}
+The run shows coverage under a permissive scheduling rule: the system could prioritize short or familiar problems and defer blockers. The mean time per locked candidate is therefore not a measure of the time required to solve a random Putnam problem, nor evidence that each proof is correct. The 100 post-lock agreements establish only agreement of the reported endpoint with a reference. The 72 self-audit passes are weaker because the same system generated and reviewed the proof.
+
+The result is nevertheless useful as an engineering measurement. A single timed process maintained a full denominator, froze candidate text before answer access, preserved negative outcomes, detected at least two concrete errors, separated three unresolved gaps, and retained an auditable chain with no hash mismatch. Those are properties of the recorded workflow.
+
+The correct formal score is zero. Natural-language mathematical plausibility, endpoint agreement, and self-review cannot be substituted for kernel acceptance. A future formalization pass may change the formal count, but it must be reported as a separate experiment because formal translation can repair or alter a proof.
+
+\section{Can another model reproduce the result with more time?}
+This dataset cannot decide that question. More time would plausibly increase coverage for many capable models, especially because the protocol permits triage and deferral. It may not resolve blockers that require a new invariant or idea. Conversely, a mathematics-specialized model may produce fewer candidates but stronger proofs, so raw lock count is an unsuitable comparison metric.
+
+A fair comparison should hold constant the hidden test set, statement order, wall-clock and token budgets, tool access, contamination rules, opportunity to defer, and post-lock verification procedure. At minimum it should report four separate curves over time:
+\[
+C(t)=\text{coverage},\quad
+A(t)=\text{answer agreement},\quad
+P(t)=\text{independently valid proofs},\quad
+F(t)=\text{kernel-verified proofs}.
+\]
+The experiment should be repeated across seeds and stratified by problem difficulty. Independent graders should review natural-language candidates while blind to model identity. A framework ablation---the same base model with and without the scaffold---is required before attributing a causal benefit to Fieldmap.
+
+The strongest discriminating test is not whether a system accumulates easy locks. It is whether its proof-validity and formal-verification curves continue to rise after a matched baseline plateaus on unseen, difficult problems.
+
+\section{Threats to validity}
+\textbf{No independent proof grading.} Self-audit can reproduce the generator's blind spots. Result agreement can coexist with an invalid proof.
+
+\textbf{Selection effects.} Deferral improves throughput by concentrating effort on ready problems. It changes the meaning of average solve time.
+
+\textbf{Benchmark familiarity.} Putnam problems and solutions may occur in pretraining data. Answer sealing prevents direct file access during the run but cannot remove memorized content.
+
+\textbf{Deployment provenance.} The model label is operator-designated metadata. The public log does not cryptographically attest the serving stack or training recipe.
+
+\textbf{Single run and no ablation.} The observed output is a joint product of pretrained model capability, tools, human direction, corpus properties, and the private scaffold. The experiment cannot isolate their contributions.
+
+\textbf{Natural-language endpoint.} The benchmark's original formal environments were not used for submission, so no formal benchmark success is claimed.
+
+\section{Conclusion}
+The one-hour pilot produced 178 immutable natural-language candidates over a 673-item corpus while retaining the entire denominator and an append-only audit trail. Post-lock checking separated 100 endpoint agreements, 72 manual self-audit passes, three gaps, two failures, and one conflict. The honest formal score is 0/673.
+
+The contribution is therefore a traceable evaluation artifact and a sharper experimental design, not a claim that 172 problems were formally solved. The next decisive study is a preregistered, matched, multi-model comparison with independent proof grading, framework ablation, and proof-kernel verification.
+
+\section*{Artifact availability}
+The accompanying public repository includes the run manifest, full outcome table, hash-chained event log, proof-lock ledger, locked proof artifacts, and SHA-256 inventory. Sealed answers and the private Fieldmap implementation are excluded.
+
+\end{document}

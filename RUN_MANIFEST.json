@@ -1,0 +1,24 @@
+{
+  "protocol": "Pete PutnamBench natural-language 1h pilot",
+  "upstream_commit": "dfb0a47a1c1ec3a10f2a9acfdf41a2043920f33c",
+  "denominator": 673,
+  "attempt_budget_per_problem": 1,
+  "wall_clock_budget_seconds": 3600,
+  "clock_starts_after_inventory": true,
+  "contaminated_before_start": [
+    "putnam_1981_b3",
+    "putnam_1988_b1",
+    "putnam_2025_b6"
+  ],
+  "official_metric": "verified / 673; contaminated and skipped receive no credit",
+  "internal_scheduler": "answer-free triage, readiness pass, fractal loop, defer/reactivate",
+  "verification_levels": {
+    "LOCKED_CANDIDATE": "proof frozen before any answer access",
+    "POST_LOCK_CORROBORATED": "compared with reference only after lock; not a proof-assistant result",
+    "FORMAL_VERIFIED": "accepted by the benchmark proof environment"
+  },
+  "started_at_utc": "2026-08-13T20:31:41.671254+00:00",
+  "deadline_utc": "2026-08-13T21:31:41.671254+00:00",
+  "state": "COMPLETED",
+  "finalized_at_utc": "2026-08-13T21:31:53.906597+00:00"
+}

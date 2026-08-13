@@ -1,0 +1,41 @@
+{
+  "protocol": "Pete PutnamBench natural-language 1h pilot",
+  "started_at_utc": "2026-08-13T20:31:41.671254+00:00",
+  "deadline_utc": "2026-08-13T21:31:41.671254+00:00",
+  "finalized_at_utc": "2026-08-13T21:31:53.906597+00:00",
+  "upstream_commit": "dfb0a47a1c1ec3a10f2a9acfdf41a2043920f33c",
+  "counts": {
+    "denominator": 673,
+    "locked_candidates": 178,
+    "post_lock_result_corroborated": 100,
+    "manual_self_audit_pass": 72,
+    "manual_audit_gap": 3,
+    "audit_fail": 2,
+    "reference_conflict": 1,
+    "contaminated": 3,
+    "formal_verified": 0,
+    "unlocked_or_unattempted": 492,
+    "proof_hash_mismatches": 0,
+    "log_chain_errors": 0
+  },
+  "failed": [
+    "putnam_1990_a5",
+    "putnam_1994_b3"
+  ],
+  "gaps": [
+    "putnam_1962_a1",
+    "putnam_1966_b5",
+    "putnam_2000_a6"
+  ],
+  "conflicts": [
+    "putnam_2024_b1"
+  ],
+  "contaminated": [
+    "putnam_1981_b3",
+    "putnam_1988_b1",
+    "putnam_2025_b6"
+  ],
+  "hash_mismatches": [],
+  "log_chain_error_lines": [],
+  "metric_note": "Official formal score is 0/673 because no Lean/Isabelle/Coq proof was submitted to a kernel. Natural-language locks and result corroboration are reported separately."
+}
